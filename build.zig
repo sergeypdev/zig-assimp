@@ -38,17 +38,9 @@ pub fn build(b: *std.Build) !void {
 
     lib.defineCMacro("RAPIDJSON_HAS_STDSTRING", "1");
 
-    lib.installConfigHeader(config_h, .{});
-    lib.installHeadersDirectoryOptions(.{
-        .source_dir = assimp.path("include"),
-        .install_subdir = "",
-        .install_dir = .header,
-    });
-
-    lib.installHeadersDirectoryOptions(.{
-        .source_dir = .{ .path = "include" },
-        .install_subdir = "",
-        .install_dir = .header,
+    lib.installConfigHeader(config_h);
+    lib.installHeadersDirectory(assimp.path("include"), "", .{
+        .include_extensions = &.{ ".h", ".inl", ".hpp" },
     });
 
     lib.addCSourceFiles(.{
