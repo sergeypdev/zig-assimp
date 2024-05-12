@@ -44,14 +44,14 @@ pub fn build(b: *std.Build) !void {
     });
 
     lib.addCSourceFiles(.{
-        .dependency = assimp,
+        .root = assimp.path(""),
         .files = &sources.common,
         .flags = &.{},
     });
 
     inline for (comptime std.meta.declarations(sources.libraries)) |ext_lib| {
         lib.addCSourceFiles(.{
-            .dependency = assimp,
+            .root = assimp.path(""),
             .files = &@field(sources.libraries, ext_lib.name),
             .flags = &.{},
         });
@@ -89,7 +89,7 @@ pub fn build(b: *std.Build) !void {
 
         if (enabled) {
             lib.addCSourceFiles(.{
-                .dependency = assimp,
+                .root = assimp.path(""),
                 .files = &@field(sources.formats, format_files.name),
                 .flags = &.{},
             });
