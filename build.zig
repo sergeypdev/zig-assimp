@@ -25,7 +25,7 @@ pub fn build(b: *std.Build) !void {
     );
     lib.addConfigHeader(config_h);
     lib.addIncludePath(assimp.path("include"));
-    lib.addIncludePath(.{ .path = "include" });
+    lib.addIncludePath(.{ .src_path = .{ .owner = b, .sub_path = "include" } });
 
     lib.addIncludePath(assimp.path(""));
     lib.addIncludePath(assimp.path("contrib"));
@@ -118,7 +118,7 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
     example_cpp.addCSourceFile(.{
-        .file = .{ .path = "src/example.cpp" },
+        .file = .{ .src_path = .{ .owner = b, .sub_path = "src/example.cpp" } },
         .flags = &[_][]const u8{"-std=c++17"},
     });
     example_cpp.linkLibrary(lib);
@@ -132,7 +132,7 @@ pub fn build(b: *std.Build) !void {
         .optimize = optimize,
     });
     example_c.addCSourceFile(.{
-        .file = .{ .path = "src/example.c" },
+        .file = .{ .src_path = .{ .owner = b, .sub_path = "src/example.c" } },
         .flags = &[_][]const u8{"-std=c99"},
     });
     example_c.linkLibrary(lib);
