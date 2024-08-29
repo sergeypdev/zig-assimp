@@ -60,7 +60,7 @@ pub fn build(b: *std.Build) !void {
     var enable_all = false;
     var enabled_formats = std.BufSet.init(b.allocator);
     defer enabled_formats.deinit();
-    var tokenizer = std.mem.tokenize(u8, formats, ",");
+    var tokenizer = std.mem.tokenizeScalar(u8, formats, ',');
     while (tokenizer.next()) |format| {
         if (std.mem.eql(u8, format, "all")) {
             enable_all = true;
